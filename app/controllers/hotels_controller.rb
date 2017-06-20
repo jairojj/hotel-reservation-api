@@ -1,4 +1,5 @@
 class HotelsController < ApplicationController
+  before_action :set_hotel, only: [:show, :update, :destroy]
 
   # GET /hotels
   def index
@@ -14,28 +15,30 @@ class HotelsController < ApplicationController
   
   # DELETE /hotels/:id
   def destroy
-    @hotel = Hotel.find(params[:id])
     @hotel.destroy
     head :no_content
   end
   
   # GET /hotels/:id
   def show
-    @hotel = Hotel.find(params[:id])
     json_response(@hotel)
   end
   
   # PUT /hotels/:id
   def update
-    @hotel = Hotel.find(params[:id])
     @hotel.update(todo_params)
     head :no_content
   end
   
   
   private
+  
   def todo_params
     params.permit(:name, :localization)
+  end
+  
+  def set_hotel
+    @hotel = Hotel.find(params[:id])
   end
   
 end

@@ -1,5 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Hotel, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  # Association test
+  # ensure Todo model has a 1:m relationship with the Room model
+  it { should have_many(:rooms).dependent(:destroy) }
+  # Validation tests
+  # ensure columns name and localization are present before saving
+  it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:localization) }
+  
 end
