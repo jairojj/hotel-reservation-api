@@ -1,6 +1,12 @@
 class RoomsController < ApplicationController
-  before_action :set_hotel
+  before_action :set_hotel, except: :all
   before_action :set_hotel_room, only: [:show, :update, :destroy]
+  
+  #GET /rooms
+  def all
+    @room = Room.joins(:hotel).where("hotels.localization" => params[:loc]).where("rooms.max_quantity >= ?", params[:qnt])
+    json_response(@room)
+  end
 
   # GET /hotel/:hotel_id/rooms
   def index
