@@ -9,6 +9,11 @@ class ReservationsController < ApplicationController
     json_response(@reservation, :created)
   end
   
+  #GET /reservations
+  def index
+    @reservation = Reservation.where(user_id: @current_user.id)
+    json_response(@reservation)
+  end
   
   private
 
